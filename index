@@ -1,0 +1,1117 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FUCK.repair — Fix Anything</title>
+  <meta
+    name="description"
+    content="Upload manuals. Learn real repair methods. Share tips and tricks. If it's broken, start here."
+  />
+  <style>
+    :root {
+      --bg: #06070a;
+      --bg-2: #0b0d12;
+      --panel: rgba(255,255,255,0.04);
+      --panel-2: rgba(255,255,255,0.03);
+      --panel-3: rgba(255,255,255,0.02);
+      --text: #f5f7fb;
+      --muted: #9ca3af;
+      --soft: #cfd6e4;
+      --line: rgba(255,255,255,0.10);
+      --line-2: rgba(255,255,255,0.16);
+      --glow: rgba(255,255,255,0.07);
+      --max: 1440px;
+      --radius: 5px;
+      --radius-lg: 5px;
+      --shadow:
+        0 1px 0 rgba(255,255,255,0.05) inset,
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 20px 60px rgba(0,0,0,0.45);
+      --pad: clamp(20px, 3vw, 40px);
+      --display: clamp(3.6rem, 10vw, 8.7rem);
+      --h2: clamp(1.9rem, 4vw, 3.2rem);
+      --body: clamp(1rem, 1.4vw, 1.08rem);
+      --nav: 0.84rem;
+      --small: 0.84rem;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      background:
+        radial-gradient(900px 500px at 12% 8%, rgba(255,255,255,0.09), transparent 60%),
+        radial-gradient(700px 400px at 88% 12%, rgba(120,160,255,0.08), transparent 55%),
+        linear-gradient(180deg, #06070a 0%, #090b10 45%, #06070a 100%);
+      background-attachment: fixed;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(rgba(255,255,255,0.02), rgba(255,255,255,0.02)) top / 100% 1px no-repeat,
+        linear-gradient(90deg, rgba(255,255,255,0.015), transparent 18%, transparent 82%, rgba(255,255,255,0.015));
+      opacity: 0.75;
+      mix-blend-mode: screen;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+
+    .wrap {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      padding-left: var(--pad);
+      padding-right: var(--pad);
+    }
+
+    .glass {
+      background: linear-gradient(180deg, var(--panel), var(--panel-3));
+      backdrop-filter: blur(18px) saturate(130%);
+      -webkit-backdrop-filter: blur(18px) saturate(130%);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding-top: 14px;
+    }
+
+    .site-header .shell {
+      border-radius: 5px;
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      padding: 0 22px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 11px;
+      height: 11px;
+      border-radius: 5px;
+      background:
+        radial-gradient(circle at 35% 35%, rgba(255,255,255,0.95), rgba(255,255,255,0.24) 60%, rgba(255,255,255,0.08) 100%);
+      box-shadow:
+        0 0 14px rgba(255,255,255,0.22),
+        0 0 30px rgba(140,180,255,0.08);
+      flex: 0 0 auto;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .nav a {
+      font-size: var(--nav);
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      transition: color 150ms ease, opacity 150ms ease;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+    }
+
+		.button,
+button {
+  appearance: none;
+  border: 1px solid var(--line-2);
+  background: linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+  color: var(--text);
+  min-height: 50px;
+  padding: 0 18px;
+  border-radius: 5px;
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  cursor: pointer;
+  transition:
+    transform 140ms ease,
+    border-color 140ms ease,
+    background 140ms ease,
+    box-shadow 140ms ease;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,0.06) inset,
+    0 10px 24px rgba(0,0,0,0.26);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+    .button:hover,
+    button:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,0.26);
+      background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0.06));
+    }
+
+    .button.primary {
+      color: #05070a;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.98), rgba(225,232,244,0.92));
+      border-color: rgba(255,255,255,0.7);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.9) inset,
+        0 10px 30px rgba(255,255,255,0.08),
+        0 14px 34px rgba(0,0,0,0.26);
+    }
+
+    .button.primary:hover {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,1), rgba(235,240,248,0.96));
+    }
+
+    .hero {
+      position: relative;
+      padding-top: clamp(40px, 6vw, 70px);
+      padding-bottom: clamp(70px, 9vw, 110px);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: clamp(26px, 4vw, 52px);
+      align-items: stretch;
+    }
+
+    .hero-copy {
+      padding: clamp(26px, 4vw, 40px);
+      border-radius: var(--radius-lg);
+      min-height: 720px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-copy::before {
+      content: "";
+      position: absolute;
+      inset: auto -10% -35% auto;
+      width: 55%;
+      height: 55%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.09), transparent 68%);
+      filter: blur(22px);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--soft);
+      font-size: 0.76rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 34px;
+      height: 1px;
+      background: rgba(255,255,255,0.30);
+      display: inline-block;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: var(--display);
+      line-height: 0.9;
+      letter-spacing: -0.07em;
+      font-weight: 800;
+      max-width: 9.5ch;
+    }
+
+    .hero-sub {
+      margin-top: 24px;
+      max-width: 45rem;
+      color: var(--muted);
+      font-size: clamp(1.04rem, 1.7vw, 1.18rem);
+      line-height: 1.65;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 34px;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 42px;
+    }
+
+    .metric {
+      padding: 18px;
+      border-radius: 5px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0.025));
+      border: 1px solid rgba(255,255,255,0.10);
+    }
+
+    .metric-kicker {
+      display: block;
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1rem;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 16px;
+    }
+
+    .panel {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .terminal {
+      min-height: 720px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .terminal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+    }
+
+    .terminal-body {
+      padding: 24px 22px 28px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.9rem;
+      color: #dfe5ef;
+      line-height: 1.72;
+      flex: 1;
+      position: relative;
+    }
+
+    .terminal-body::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 140px;
+      background: linear-gradient(180deg, transparent, rgba(6,7,10,0.9));
+      pointer-events: none;
+    }
+
+    .terminal-line {
+      display: block;
+      white-space: pre-wrap;
+    }
+
+    .prompt { color: #ffffff; }
+    .muted { color: var(--muted); }
+    .ok { color: #e9eef7; }
+
+    .section {
+      padding-top: clamp(20px, 2vw, 28px);
+      padding-bottom: clamp(20px, 2vw, 28px);
+    }
+
+    .section-card {
+      border-radius: 34px;
+      padding: clamp(26px, 4vw, 40px);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 0.76fr 1.24fr;
+      gap: clamp(24px, 4vw, 60px);
+      align-items: start;
+      margin-bottom: 34px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: var(--h2);
+      line-height: 0.96;
+      letter-spacing: -0.05em;
+      max-width: 12ch;
+    }
+
+    .section-intro {
+      max-width: 58rem;
+      color: var(--muted);
+      font-size: var(--body);
+      line-height: 1.75;
+    }
+
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+    .card {
+      border-radius: 5px;
+      padding: 22px;
+      min-height: 220px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.045), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.09);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.05) inset,
+        0 18px 40px rgba(0,0,0,0.28);
+    }
+
+    .label {
+      display: inline-block;
+      margin-bottom: 14px;
+      font-size: 0.7rem;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .card h3 {
+      margin: 0 0 12px;
+      font-size: 1.2rem;
+      line-height: 1.12;
+      letter-spacing: -0.03em;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.65;
+      font-size: 0.98rem;
+    }
+
+    .manuals-table-wrap {
+      border-radius: 5px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.09);
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.015));
+      box-shadow: var(--shadow);
+    }
+
+    .manuals-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .manuals-table th,
+    .manuals-table td {
+      text-align: left;
+      padding: 18px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      vertical-align: top;
+    }
+
+    .manuals-table th {
+      color: var(--muted);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      font-weight: 700;
+      background: rgba(255,255,255,0.02);
+    }
+
+    .manuals-table td {
+      font-size: 0.95rem;
+      color: #edf2f9;
+    }
+
+    .manuals-table tr:last-child td { border-bottom: none; }
+    .state { font-weight: 700; color: #ffffff; }
+
+    .tip-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .tip {
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 18px;
+      padding: 20px 22px;
+      border-radius: 5px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.035), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .tip-tag {
+      color: var(--muted);
+      font-size: 0.72rem;
+      letter-spacing: 0.17em;
+      text-transform: uppercase;
+      padding-top: 4px;
+    }
+
+    .tip-copy h4 {
+      margin: 0 0 8px;
+      font-size: 1.06rem;
+      letter-spacing: -0.02em;
+    }
+
+    .tip-copy p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .upload-panel {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .upload-box {
+      border-radius: 5px;
+      padding: 26px;
+      min-height: 240px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.04) inset,
+        0 18px 38px rgba(0,0,0,0.25);
+    }
+
+    .upload-box h3 {
+      margin: 0 0 10px;
+      font-size: 1.24rem;
+      letter-spacing: -0.03em;
+    }
+
+    .upload-box p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    input,
+    textarea,
+    select {
+      width: 100%;
+      border: 1px solid rgba(255,255,255,0.10);
+      background: rgba(255,255,255,0.03);
+      color: var(--text);
+      min-height: 52px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      outline: none;
+      font: inherit;
+      transition: border-color 150ms ease, background 150ms ease, box-shadow 150ms ease;
+    }
+
+    textarea {
+      min-height: 160px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus,
+    select:focus {
+      border-color: rgba(255,255,255,0.22);
+      background: rgba(255,255,255,0.045);
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.04);
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      color: #7f8694;
+    }
+
+    .stat-band {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .stat {
+      border-radius: 5px;
+      padding: 24px;
+      min-height: 170px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.09);
+      box-shadow:
+        0 1px 0 rgba(255,255,255,0.04) inset,
+        0 18px 38px rgba(0,0,0,0.25);
+    }
+
+    .stat-number {
+      font-size: clamp(2.3rem, 4vw, 3.7rem);
+      line-height: 0.95;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+      margin-bottom: 12px;
+    }
+
+    .stat-copy {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.98rem;
+    }
+
+    .cta {
+      text-align: center;
+    }
+
+    .cta-shell {
+      border-radius: 5px;
+      padding: clamp(30px, 5vw, 56px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-shell::before {
+      content: "";
+      position: absolute;
+      inset: -15% auto auto 50%;
+      width: 60%;
+      height: 60%;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(255,255,255,0.10), transparent 68%);
+      filter: blur(18px);
+      pointer-events: none;
+    }
+
+    .cta h2 {
+      font-size: clamp(2.3rem, 5vw, 4.8rem);
+      max-width: 12ch;
+      margin: 0 auto 18px;
+      line-height: 0.92;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta p {
+      max-width: 46rem;
+      margin: 0 auto 26px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .site-footer {
+      padding-top: 18px;
+      padding-bottom: 28px;
+    }
+
+    .site-footer .shell {
+      border-radius: 5px;
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 0 22px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+    }
+
+    @media (max-width: 1120px) {
+      .hero-grid,
+      .section-head,
+      .upload-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-copy,
+      .terminal {
+        min-height: auto;
+      }
+
+      .grid-4 { grid-template-columns: repeat(2, 1fr); }
+      .grid-3,
+      .stat-band { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 760px) {
+      .nav { display: none; }
+
+      .hero-metrics,
+      .grid-3,
+      .grid-4,
+      .stat-band,
+      .input-row,
+      .upload-panel {
+        grid-template-columns: 1fr;
+      }
+
+      .tip {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .site-header .shell,
+      .site-footer .shell {
+        border-radius: 5px;
+        min-height: auto;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      h1 { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <div class="shell glass">
+        <a href="#" class="brand">
+          <span class="brand-mark" aria-hidden="true"></span>
+          <span>FUCK.REPAIR</span>
+        </a>
+
+        <nav class="nav">
+          <a href="#mission">Mission</a>
+          <a href="#manuals">Manuals</a>
+          <a href="#tips">Tips</a>
+          <a href="#upload">Upload</a>
+          <a href="#join">Join</a>
+        </nav>
+
+        <a class="button" href="#upload">Upload Manual</a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div class="hero-copy glass">
+            <div>
+              <div class="eyebrow">Universal repair archive</div>
+              <h1>IF IT'S BROKEN, START HERE.</h1>
+
+              <p class="hero-sub">
+                FUCK.repair is a universal repair platform for manuals, diagnostics, field notes, and real-world fix methods.
+                Appliance. Pump. Laptop. Gate motor. Pool heater. Dirt bike. Dishwasher. Whatever it is, the instinct should become automatic:
+                broken thing = FUCK.repair.
+              </p>
+
+              <div class="hero-actions">
+                <a class="button primary" href="#join">Get Early Access</a>
+                <a class="button" href="#upload">Upload a Manual</a>
+              </div>
+            </div>
+
+            <div class="hero-metrics">
+              <div class="metric">
+                <span class="metric-kicker">Manual Library</span>
+                <strong>Users upload manuals for everyone's benefit.</strong>
+              </div>
+              <div class="metric">
+                <span class="metric-kicker">Repair Notes</span>
+                <strong>Tips and tricks for absolutely anything.</strong>
+              </div>
+              <div class="metric">
+                <span class="metric-kicker">Brand Recall</span>
+                <strong>Fastest path from frustration to action.</strong>
+              </div>
+            </div>
+          </div>
+
+          <aside class="hero-side">
+            <div class="panel glass terminal">
+              <div class="terminal-top">
+                <span>Live concept feed</span>
+                <span>Precision / archive / field reality</span>
+              </div>
+              <div class="terminal-body">
+                <span class="terminal-line"><span class="prompt">></span> USER ISSUE: washer stops mid-cycle</span>
+                <span class="terminal-line muted">checking: drain path / lid switch / board fault / pressure sensor</span>
+                <span class="terminal-line ok">result: start with lid switch and clogged filter before replacing control board</span>
+                <br />
+                <span class="terminal-line"><span class="prompt">></span> USER ISSUE: salt cell not generating</span>
+                <span class="terminal-line muted">checking: flow switch / scale load / salinity / amp draw / temp lockout</span>
+                <span class="terminal-line ok">result: verify actual salinity and inspect scale before buying new cell</span>
+                <br />
+                <span class="terminal-line"><span class="prompt">></span> USER ISSUE: garage door hums but won't move</span>
+                <span class="terminal-line muted">checking: capacitor / travel lock / trolley bind / spring failure</span>
+                <span class="terminal-line ok">result: broken spring likely — stop running opener until spring is addressed</span>
+                <br />
+                <span class="terminal-line"><span class="prompt">></span> USER ISSUE: laptop thermal throttling</span>
+                <span class="terminal-line muted">checking: fan blockage / dried paste / background load / bios profile</span>
+                <span class="terminal-line ok">result: clean fins, verify fan RPM, then repaste if temps stay high</span>
+                <br />
+                <span class="terminal-line"><span class="prompt">></span> USER ISSUE: unknown machine, no manual</span>
+                <span class="terminal-line muted">searching community archive...</span>
+                <span class="terminal-line ok">result: 3 similar manuals found + 2 field notes + 1 teardown guide</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="mission">
+      <div class="wrap">
+        <div class="section-card glass">
+          <div class="section-head">
+            <h2>Repair knowledge should feel inevitable, not buried.</h2>
+            <div class="section-intro">
+              Most things are not difficult to fix. They are difficult to diagnose clearly. The internet is full of bad guesses,
+              dead links, vague forum replies, and generic filler. FUCK.repair is built around a cleaner model: manuals that stay available,
+              field-tested notes that compound over time, and a direct path from failure to next step.
+            </div>
+          </div>
+
+          <div class="grid-3">
+            <article class="card">
+              <span class="label">01 — Universal scope</span>
+              <h3>Not pool-only. Not home-only. Not tech-only.</h3>
+              <p>
+                Cars, pumps, gates, heaters, electronics, tools, appliances, shop equipment, mechanical systems, and weird one-off machines nobody else documents well.
+              </p>
+            </article>
+
+            <article class="card">
+              <span class="label">02 — Community archive</span>
+              <h3>Manuals uploaded once. Useful forever.</h3>
+              <p>
+                An obscure PDF on one old laptop helps no one. Put it in the archive. Let the next person solve the same problem in minutes.
+              </p>
+            </article>
+
+            <article class="card">
+              <span class="label">03 — Fix first</span>
+              <h3>No fluff. No fake certainty. Just direction.</h3>
+              <p>
+                What failed. What to test first. What parts usually die. What not to waste money on. That is the value.
+              </p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="manuals">
+      <div class="wrap">
+        <div class="section-card glass">
+          <div class="section-head">
+            <h2>Manuals people actually need.</h2>
+            <div class="section-intro">
+              The manual library is the backbone. Users upload installation guides, service manuals, wiring diagrams, exploded parts views,
+              field bulletins, and old PDFs manufacturers stop hosting. Every upload improves the odds that the next repair starts with facts instead of guessing.
+            </div>
+          </div>
+
+          <div class="manuals-table-wrap">
+            <table class="manuals-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Example Item</th>
+                  <th>What Users Share</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Pools / Water Systems</td>
+                  <td>Heaters, pumps, salt systems, automation, covers</td>
+                  <td>Service manuals, wiring diagrams, startup notes</td>
+                  <td class="state">Archive Ready</td>
+                </tr>
+                <tr>
+                  <td>Home / Appliance</td>
+                  <td>Washer, dryer, oven, fridge, dishwasher</td>
+                  <td>Tech sheets, fault codes, teardown notes</td>
+                  <td class="state">Archive Ready</td>
+                </tr>
+                <tr>
+                  <td>Garage / Mechanical</td>
+                  <td>Compressors, welders, lifts, air tools, mowers</td>
+                  <td>Parts diagrams, service intervals, rebuild tips</td>
+                  <td class="state">Archive Ready</td>
+                </tr>
+                <tr>
+                  <td>Electronics / Devices</td>
+                  <td>Laptops, monitors, printers, consoles, routers</td>
+                  <td>Disassembly docs, board notes, known failures</td>
+                  <td class="state">Archive Ready</td>
+                </tr>
+                <tr>
+                  <td>Vehicles / Equipment</td>
+                  <td>ATVs, bikes, small engines, trailers, odd machinery</td>
+                  <td>Shop manuals, torque specs, test procedures</td>
+                  <td class="state">Archive Ready</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tips">
+      <div class="wrap">
+        <div class="section-card glass">
+          <div class="section-head">
+            <h2>Tips and tricks to fix anything.</h2>
+            <div class="section-intro">
+              Manuals tell you what the manufacturer intended. Field notes tell you what actually fails after years of weather, bad installs,
+              misuse, vibration, heat, corrosion, and previous-owner stupidity.
+            </div>
+          </div>
+
+          <div class="tip-list">
+            <div class="tip">
+              <div class="tip-tag">Diagnosis</div>
+              <div class="tip-copy">
+                <h4>Do not replace parts before proving the failure path.</h4>
+                <p>Most wasted money comes from symptom-swapping. Verify power, signal, continuity, flow, pressure, load, movement, and blockage before ordering anything.</p>
+              </div>
+            </div>
+
+            <div class="tip">
+              <div class="tip-tag">Manuals</div>
+              <div class="tip-copy">
+                <h4>The obscure PDF matters more than the brochure.</h4>
+                <p>Service bulletins, exploded diagrams, old install sheets, and annotated scans are usually more useful than the polished official manual.</p>
+              </div>
+            </div>
+
+            <div class="tip">
+              <div class="tip-tag">Field reality</div>
+              <div class="tip-copy">
+                <h4>Look for the known weak point first.</h4>
+                <p>Every product has one. Cheap capacitor. Cracked solder joint. Flow switch. Drain clog. Relay weld. Broken clip. Start there before inventing a rare failure.</p>
+              </div>
+            </div>
+
+            <div class="tip">
+              <div class="tip-tag">Money</div>
+              <div class="tip-copy">
+                <h4>Know when not to repair.</h4>
+                <p>Some things should be fixed. Some should be stabilized. Some should be replaced. A credible repair platform tells the truth about all three.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-card glass">
+          <div class="section-head">
+            <h2>How the platform works.</h2>
+            <div class="section-intro">
+              Start simple. Manual archive. Search by product or symptom. Upload what is missing. Add likely failure points. Add field notes.
+              Let repair knowledge compound over time instead of disappearing in texts, trucks, and bookmarks.
+            </div>
+          </div>
+
+          <div class="grid-4">
+            <article class="card">
+              <span class="label">Step 01</span>
+              <h3>Search the problem</h3>
+              <p>Find the machine, symptom, manual, known failure, part number, or field note that matches what is in front of you.</p>
+            </article>
+
+            <article class="card">
+              <span class="label">Step 02</span>
+              <h3>Upload what is missing</h3>
+              <p>Add manuals, photos, teardown notes, fault lists, diagrams, wiring shots, and hard-to-find PDFs that help the next person.</p>
+            </article>
+
+            <article class="card">
+              <span class="label">Step 03</span>
+              <h3>Publish the fix</h3>
+              <p>Document what worked, what failed, what to test first, and what not to waste money replacing.</p>
+            </article>
+
+            <article class="card">
+              <span class="label">Step 04</span>
+              <h3>Build recall</h3>
+              <p>Broken thing. Frustration spike. One answer. FUCK.repair.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="upload">
+      <div class="wrap">
+        <div class="section-card glass">
+          <div class="section-head">
+            <h2>Upload manuals. Add fixes. Improve the archive.</h2>
+            <div class="section-intro">
+              Early users define the signal quality. Seed it with the manuals everyone loses, the products nobody documents well,
+              and the repair tips that save real money.
+            </div>
+          </div>
+
+          <div class="upload-panel">
+            <div class="upload-box">
+              <div>
+                <h3>Manual upload</h3>
+                <p>Service manuals, installation guides, parts breakdowns, tech sheets, bulletins, old PDFs, wiring diagrams, or repair notes.</p>
+              </div>
+              <div class="input-row">
+                <input type="text" placeholder="Brand / model" />
+                <select>
+                  <option selected>Category</option>
+                  <option>Pools / Water Systems</option>
+                  <option>Appliance</option>
+                  <option>Mechanical</option>
+                  <option>Electronics</option>
+                  <option>Vehicle / Equipment</option>
+                  <option>Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="upload-box">
+              <div>
+                <h3>Fix note</h3>
+                <p>What was broken, what you checked, what actually fixed it, and what someone should not waste time replacing.</p>
+              </div>
+              <div class="input-row">
+                <input type="text" placeholder="Problem title" />
+                <input type="text" placeholder="Product / system" />
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:14px;">
+            <textarea placeholder="Example: Pentair heater cycling with ignition fault. Verified gas supply and flame sensor first. Found broken pressure switch tubing and scale load in header. Pressure path fix resolved issue without board replacement."></textarea>
+          </div>
+
+          <div style="margin-top:14px; display:flex; gap:12px; flex-wrap:wrap;">
+            <button class="button primary" type="button">Submit Concept</button>
+            <button class="button" type="button">See Public Archive</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="stat-band">
+          <div class="stat glass">
+            <div class="stat-number">ANY</div>
+            <div class="stat-copy">Any machine, device, system, appliance, tool, vehicle, or weird piece of equipment.</div>
+          </div>
+          <div class="stat glass">
+            <div class="stat-number">ONE</div>
+            <div class="stat-copy">One brand to own the mental slot when something breaks: FUCK.repair.</div>
+          </div>
+          <div class="stat glass">
+            <div class="stat-number">REAL</div>
+            <div class="stat-copy">Real manuals. Real diagnostics. Real repair notes. Not generic search-engine filler.</div>
+          </div>
+          <div class="stat glass">
+            <div class="stat-number">FAST</div>
+            <div class="stat-copy">Reduce wasted time, wasted parts, and wasted money by starting with better information.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section cta" id="join">
+      <div class="wrap">
+        <div class="cta-shell glass">
+          <h2>Repair knowledge for everything people actually break.</h2>
+          <p>
+            Join early. Help seed the archive. Upload manuals. Publish fix notes. Make this the first place people think of when something fails and patience runs out.
+          </p>
+          <div class="cta-row">
+            <a class="button primary" href="mailto:hello@fuck.repair?subject=FUCK.repair Early Access">Request Early Access</a>
+            <a class="button" href="mailto:hello@fuck.repair?subject=I%20Have%20Manuals%20to%20Upload">I Have Manuals</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <div class="shell glass">
+        <div>FUCK.REPAIR</div>
+        <div>Universal repair archive / field notes / fix anything</div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
